@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+"""file for storage engine"""
+import json
+import models
+
+
+class FileStorage():
+    """serializes instances to a JSON file and deserializes JSON file to instances"""
+    __file_path = None
+    __objects = {}
+
+    def all(self):
+        return self.__objects
+
+    def new(self, obj):
+        print(obj.id)
+        self.__objects.update({"{}.{}".format(obj, obj.id): obj.to_dict()})
+
+    def save(self):
+        self.__file_path = "file.json"
+        with open(self.__file_path, "w") as myfile:
+
+            json.dump(self.__objects, myfile, default=str)
+
+    def reload(self):
+        if self.__file_path != None:
+            with open(self.__file_path, "r") as myfile:
+                json.load(myfile, self.__object)
+        else:
+            pass
+

@@ -5,7 +5,7 @@
 import uuid
 import models
 from datetime import datetime
-
+from models.__init__ import storage
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
@@ -15,7 +15,7 @@ class BaseModel:
             for key, val in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, val)
-                if key == "created_at" or key == "update_at":
+                if key == "created_at" or key == "updated_at":
                     time_val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, time_val)
 
@@ -23,6 +23,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """ Return a string to print id, name, and dict """
@@ -33,6 +34,7 @@ class BaseModel:
         """ Updates the public instance attr update_at to current time
         """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """ Returns a dict contains keys/value of dict of the inst
