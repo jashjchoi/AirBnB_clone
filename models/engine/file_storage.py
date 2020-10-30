@@ -5,8 +5,11 @@ import models
 
 
 class FileStorage():
-    """serializes instances to a JSON file and deserializes JSON file to instances"""
-    __file_path = None
+    """
+    serializes instances to a JSON file & deserializes JSON file to instances
+    """
+
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -23,9 +26,9 @@ class FileStorage():
             json.dump(self.__objects, myfile, default=str)
 
     def reload(self):
-        if self.__file_path != None:
+        try:
             with open(self.__file_path, "r") as myfile:
-                json.load(myfile, self.__object)
-        else:
-            pass
+                return self.__objects.update(json.load(myfile))
 
+        except FileNotFoundError:
+            pass
