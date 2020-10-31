@@ -39,5 +39,30 @@ class HBNBCommand(cmd.Cmd):
             else: 
                 print("** class doesn't exist **")
 
+    def do_show(self, line):
+        try:
+            if not line:
+                raise SyntaxError()
+            """x = input"""
+            x = line.split()
+            my_cls = {"BaseModel": BaseModel}
+            if x[0] not in my_cls:
+                raise NameError()
+            if len(x) < 2:
+                raise IndexError()
+            key = x[0] + "." + x[1]
+            jsondict = storage.all()
+            if key in jsondict.keys():
+                print(jsondict[key])
+            else:
+                raise KeyError()
+        except SyntaxError:
+                print("** class name missing **")
+        except NameError:
+                print("** class doesn't exist **")
+        except IndexError:
+                print("** instance id missing **")
+        except KeyError:
+                print("** no instance found **")
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
