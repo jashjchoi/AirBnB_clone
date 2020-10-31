@@ -16,7 +16,8 @@ class FileStorage():
         return self.__objects
 
     def new(self, obj):
-        self.__objects.update({"{}.{}".format(obj, obj.id): obj.to_dict()})
+        key = obj.__class__.__name__ + "." + obj.id
+        self.__objects.update({key: obj})
 
     def save(self):
         self.__file_path = "file.json"
