@@ -16,7 +16,6 @@ class FileStorage():
         return self.__objects
 
     def new(self, obj):
-        print(obj.id)
         self.__objects.update({"{}.{}".format(obj, obj.id): obj.to_dict()})
 
     def save(self):
