@@ -38,5 +38,6 @@ class FileStorage():
                         new_model = my_cls[clsid[0]](kwargs=attr_dict)
                         self.__objects.update({key: new_model})
                 return self.__objects
+
         except FileNotFoundError:
             pass
