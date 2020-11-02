@@ -7,7 +7,7 @@ import cmd
 from models import storage
 from datetime import datetime
 from models.base_model import BaseModel
-
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
         else:
-            my_cls = {"BaseModel": BaseModel}
+            my_cls = {"BaseModel": BaseModel, "User": User}
             if line in my_cls.keys():
                 new_model = my_cls[line]()
                 new_model.save()
