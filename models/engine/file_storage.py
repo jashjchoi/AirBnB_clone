@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """file for storage engine"""
 import json
-import models
+import datetime
 
 
 class FileStorage():
@@ -28,7 +28,17 @@ class FileStorage():
     def reload(self):
         try:
             with open(self.__file_path, "r") as myfile:
-                return self.__objects.update(json.load(myfile))
+                file_dict = json.load(myfile)
+                for key in file_dict:
+                    class_id = key.split(".")
+                    class_id_str = "[{}] ({}) ".format(class_id[0], class_id[1])
+                    attr_dict = eval(file_dict[key].replace(class_id_str, ""))
+                    from models.base_model import BaseModel
+                    my_cls = {'BaseModel': BaseModel}
+                    if class_id[0] in my_cls.keys():
+                        new_model = my_cls[class_id[0]](kwargs=attr_dict)
+                        self.__objects.update({key: new_model})
+                return self.__objects
 
         except FileNotFoundError:
             pass
