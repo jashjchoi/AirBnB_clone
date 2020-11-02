@@ -5,7 +5,7 @@
 import uuid
 import models
 from datetime import datetime
-from models.__init__ import storage
+from models import storage
 
 
 class BaseModel:
@@ -13,12 +13,9 @@ class BaseModel:
         """ Initialize a new model
         """
         if kwargs:
-            for key, val in kwargs.items():
+            for key, val in kwargs['kwargs'].items():
                 if key != "__class__":
                     setattr(self, key, val)
-                if key == "created_at" or key == "updated_at":
-                    time_val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
-                    setattr(self, key, time_val)
 
         else:
             self.id = str(uuid.uuid4())
