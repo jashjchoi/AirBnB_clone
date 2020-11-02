@@ -34,7 +34,15 @@ class FileStorage():
                     attr_dict = eval(file_dict[key].replace(class_id_str, ""))
                     from models.base_model import BaseModel
                     from models.user import User
-                    my_cls = {'BaseModel': BaseModel, 'User': User}
+                    from models.state import State
+                    from models.city import City
+                    from models.amenity import Amenity
+                    from models.place import Place
+                    from models.review import Review
+                    my_cls = {'BaseModel': BaseModel, 'User': User,
+                              "State": State, "City": City,
+                              "Amenity": Amenity, "Place": Place,
+                              "Review": Review}
                     if clsid[0] in my_cls.keys():
                         new_model = my_cls[clsid[0]](kwargs=attr_dict)
                         self.__objects.update({key: new_model})

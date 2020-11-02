@@ -8,6 +8,12 @@ from models import storage
 from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -32,7 +38,10 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
         else:
-            my_cls = {"BaseModel": BaseModel, "User": User}
+            my_cls = {"BaseModel": BaseModel, "User": User,
+                      "State": State, "City": City,
+                      "Amenity": Amenity, "Place": Place,
+                      "Review": Review}
             if line in my_cls.keys():
                 new_model = my_cls[line]()
                 new_model.save()
@@ -47,7 +56,10 @@ class HBNBCommand(cmd.Cmd):
             if not line:
                 raise SyntaxError()
             x = line.split()
-            my_cls = {"BaseModel": BaseModel, "User": User}
+            my_cls = {"BaseModel": BaseModel, "User": User,
+                      "State": State, "City": City,
+                      "Amenity": Amenity, "Place": Place,
+                      "Review": Review}
             if x[0] not in my_cls:
                 raise NameError()
             if len(x) < 2:
@@ -82,7 +94,10 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
 
     def do_destroy(self, line):
-        my_cls = {"BaseModel": BaseModel, "User": User}
+        my_cls = {"BaseModel": BaseModel, "User": User,
+                  "State": State, "City": City,
+                  "Amenity": Amenity, "Place": Place,
+                  "Review": Review}
         try:
             if not line:
                 raise SyntaxError()
@@ -113,7 +128,10 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             """x = input"""
             x = line.split()
-            my_cls = {"BaseModel": BaseModel, "User": User}
+            my_cls = {"BaseModel": BaseModel, "User": User,
+                      "State": State, "City": City,
+                      "Amenity": Amenity, "Place": Place,
+                      "Review": Review}
             if x[0] not in my_cls:
                 raise NameError()
             if len(x) < 2:
@@ -137,7 +155,10 @@ class HBNBCommand(cmd.Cmd):
         jsondict = storage.all()
         try:
             if line:
-                my_cls = {"BaseModel": BaseModel, "User": User}
+                my_cls = {"BaseModel": BaseModel, "User": User,
+                          "State": State, "City": City,
+                          "Amenity": Amenity, "Place": Place,
+                          "Review": Review}
                 if line not in my_cls:
                     raise NameError()
             for key in jsondict.keys():
