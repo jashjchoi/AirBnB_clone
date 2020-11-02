@@ -33,6 +33,7 @@ class FileStorage():
                     class_id_str = "[{}] ({}) ".format(clsid[0], clsid[1])
                     attr_dict = eval(file_dict[key].replace(class_id_str, ""))
                     from models.base_model import BaseModel
+                    from models.user import User
                     my_cls = {'BaseModel': BaseModel, 'User': User}
                     if clsid[0] in my_cls.keys():
                         new_model = my_cls[clsid[0]](kwargs=attr_dict)

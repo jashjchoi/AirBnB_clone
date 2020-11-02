@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
             if not line:
                 raise SyntaxError()
             x = line.split()
-            my_cls = {"BaseModel": BaseModel}
+            my_cls = {"BaseModel": BaseModel, "User": User}
             if x[0] not in my_cls:
                 raise NameError()
             if len(x) < 2:
@@ -82,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
 
     def do_destroy(self, line):
-        my_cls = {"BaseModel": BaseModel}
+        my_cls = {"BaseModel": BaseModel, "User": User}
         try:
             if not line:
                 raise SyntaxError()
@@ -113,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             """x = input"""
             x = line.split()
-            my_cls = {"BaseModel": BaseModel}
+            my_cls = {"BaseModel": BaseModel, "User": User}
             if x[0] not in my_cls:
                 raise NameError()
             if len(x) < 2:
@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
         jsondict = storage.all()
         try:
             if line:
-                my_cls = {"BaseModel": BaseModel}
+                my_cls = {"BaseModel": BaseModel, "User": User}
                 if line not in my_cls:
                     raise NameError()
             for key in jsondict.keys():
