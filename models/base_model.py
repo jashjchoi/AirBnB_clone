@@ -14,12 +14,17 @@ class BaseModel:
         """
         if kwargs:
             for key, val in kwargs['kwargs'].items():
+<<<<<<< HEAD
                 # if key == "created_at" or key == "updated_at":
                 #    import pdb; pdb.set_trace()
                 #    time_val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
                 #    setattr(self, key, time_val)
                 if key != "__class__":
                     setattr(self, key , val)
+=======
+                if key != "__class__":
+                    setattr(self, key, val)
+>>>>>>> 553f31354e0b2f16656c48ca48d1322a1598df32
 
         else:
             self.id = str(uuid.uuid4())

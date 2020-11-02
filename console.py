@@ -2,6 +2,7 @@
 """
     AirBnB console.py
 """
+import json
 import cmd
 from models import storage
 from datetime import datetime
@@ -36,8 +37,75 @@ class HBNBCommand(cmd.Cmd):
                 new_model = my_cls[line]()
                 new_model.save()
                 print(new_model.id)
-            else: 
+            else:
                 print("** class doesn't exist **")
+
+    def do_update(self, line):
+        """Updates an instanceby adding or updating attribute
+        """
+        try:
+            if not line:
+                raise SyntaxError()
+            x = line.split()
+            my_cls = {"BaseModel": BaseModel}
+            if x[0] not in my_cls:
+                raise NameError()
+            if len(x) < 2:
+                raise IndexError()
+            jsondict = storage.all()
+            key = x[0] + '.' + x[1]
+            if key not in jsondict:
+                raise KeyError()
+            if len(x) < 3:
+                raise AttributeError()
+            if len(x) < 4:
+                raise ValueError()
+            val = jsondict[key]
+            attribute_name = x[2]
+            attribute_value = x[3]
+            try:
+                val.__dict__[attribute_name] = eval(attribute_value)
+            except Exception:
+                val.__dict__[attribute_name] = attribute_value
+            val.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
+            print("** no instance found **")
+        except AttributeError:
+            print("** attribute name missing **")
+        except ValueError:
+            print("** value missing **")
+
+    def do_destroy(self, line):
+        my_cls = {"BaseModel": BaseModel}
+        try:
+            if not line:
+                raise SyntaxError()
+            x = line.split(" ")
+            if x[0] not in my_cls:
+                raise NameError()
+            if len(x) < 2:
+                raise IndexError()
+            jsondict = storage.all()
+            key = x[0] + '.' + x[1]
+            if key in jsondict.keys():
+                del jsondict[key]
+                storage.save()
+            else:
+                raise KeyError()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
+            print("** no instance found **")
 
     def do_show(self, line):
         try:
@@ -57,12 +125,13 @@ class HBNBCommand(cmd.Cmd):
             else:
                 raise KeyError()
         except SyntaxError:
-                print("** class name missing **")
+            print("** class name missing **")
         except NameError:
-                print("** class doesn't exist **")
+            print("** class doesn't exist **")
         except IndexError:
-                print("** instance id missing **")
+            print("** instance id missing **")
         except KeyError:
+<<<<<<< HEAD
                 print("** no instance found **")
 
     def do_update(self, line):
@@ -105,6 +174,27 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         except ValueError:
             print("** value missing **")
+=======
+            print("** no instance found **")
+
+    def do_all(self, line):
+        jsondict = storage.all()
+        try:
+            if line:
+                my_cls = {"BaseModel": BaseModel}
+                if line not in my_cls:
+                    raise NameError()
+            for key in jsondict.keys():
+                if line:
+                    x = key.split(".")
+                    if x[0] == line:
+                        print(jsondict[key])
+                else:
+                    print(jsondict[key])
+        except NameError:
+            print("** class doesn't exist **")
+
+>>>>>>> 553f31354e0b2f16656c48ca48d1322a1598df32
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
