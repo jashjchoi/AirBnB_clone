@@ -13,9 +13,17 @@ class BaseModel:
         """ Initialize a new model
         """
         if kwargs:
-            for key, val in kwargs['kwargs'].items():
-                if key != "__class__":
-                    setattr(self, key, val)
+            try:
+                for key, val in kwargs['kwargs'].items():
+                    if key != "__class__":
+                        setattr(self, key, val)
+            except KeyError:
+                  for key, val in kwargs.items():
+                    if key == "created_at" or key == "updated_at":
+                        time_val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
+                        setattr(self, key, time_val)
+                    elif key != "__class__":
+                        setattr(self, key, val)
 
         else:
             self.id = str(uuid.uuid4())
