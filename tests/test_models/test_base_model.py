@@ -25,8 +25,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("created_at", test_obj.__dict__)
         self.assertIn("updated_at", test_obj.__dict__)
         """test if dictionaries contains all attr in correct type"""
-        self.assertIsInstance(test_obj.id, str) 
-        self.assertIsInstance(test_obj.created_at, datetime) 
+        self.assertIsInstance(test_obj.id, str)
+        self.assertIsInstance(test_obj.created_at, datetime)
         self.assertIsInstance(test_obj.updated_at, datetime)
 
     def test_BaseModel_save(self):
@@ -42,5 +42,18 @@ class TestBaseModel(unittest.TestCase):
         base_dict = BaseModel()
         obj_dict = base_dict.to_dict()
         self.assertEqual(base_dict.__class__.__name__, 'BaseModel')
-        self.assertIsInstance(obj_dict['created_at'], str) 
+        self.assertIsInstance(obj_dict['created_at'], str)
         self.assertIsInstance(obj_dict['updated_at'], str)
+
+    def test_output_str(self):
+        str_dict = BaseModel()
+        self.assertIsInstance(str_dict.__str__(), str)
+        new_str_dict = BaseModel()
+        str_output = "[{}] ({}) {}".format(
+                new_str_dict.__class__.__name__,
+                new_str_dict.id,
+                new_str_dict.__dict__)
+        self.assertEqual(str_output, new_str_dict.__str__())
+
+if __name__ == "__main__":
+    unittest.main()
