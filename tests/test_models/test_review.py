@@ -9,7 +9,6 @@ class TestReview(unittest.TestCase):
     """Test class Review"""
 
     @classmethod
-
     def test_setupReview(cls):
         cls.review = Review()
         cls.review.name = "David"
