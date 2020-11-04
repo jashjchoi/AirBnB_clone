@@ -20,7 +20,6 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(obj, Amenity)
         self.assertIsInstance(obj, BaseModel)
 
-   
     def test_amenity_attr(self):
         amen_obj = Amenity()
         self.assertIn("id", amen_obj.__dict__)
