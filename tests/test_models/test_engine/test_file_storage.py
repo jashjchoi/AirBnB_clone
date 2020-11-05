@@ -34,6 +34,7 @@ class TestFileStorageClass(unittest.TestCase):
         self.assertIn(new_bm, storage.all().values())
 
     def test_stroage_save(self):
+        """tests if save() works"""
         myfile = "file.json"
         storage.save()
         self.assertTrue(os.path.exists(myfile))
@@ -43,11 +44,21 @@ class TestFileStorageClass(unittest.TestCase):
             json_dict = file.read()
             storage.save()
             new_json_dict = file.read()
+        """tests if the new dictionary is not equal to the old dict"""
         self.assertNotEqual(json_dict, new_json_dict)
 
     def test_storage_reload_typeError(self):
+        """tests if the input contains TypeError; reload None"""
         with self.assertRaises(TypeError):
             storage.reload(None)
+
+    def test_storage_reload(self):
+        """tests if reload() works"""
+        old_dict = storage.all()
+        storage.reload()
+        reloaded_dict = storage.all()
+        """tests if reload() returns dictionary"""
+        self.assertEqual(old_dict.keys(), reloaded_dict.keys())
 
 
 if __name__ == "__main__":
