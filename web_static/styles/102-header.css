@@ -9,7 +9,8 @@ header {
 }
 
 @media only screen and (max-width: 480px){
-   .header {
-        background-position: center;
+    header {
+        background-repeat: no-repeat;
+        background-position:top center;
    }
 }

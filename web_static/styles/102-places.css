@@ -110,6 +110,16 @@
     margin-top: 5px;
 }
 
+
+
+@media only screen and (max-width: 768px){
+    .places h1{
+    font-size: 25px;
+    margin: 20px auto 0px auto;
+    text-align: center;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .places{
         width: 100%; 
